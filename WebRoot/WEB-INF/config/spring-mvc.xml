@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   
+		http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context             
+		http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+
+	<!-- 把标记了@Controller注解的类转换为bean -->
+	<context:component-scan base-package="com.controller" />
+	<!-- 开启注解 -->
+	<mvc:annotation-driven/>
+
+
+	<!-- 对模型视图名称的解析，即在模型视图名称添加前后缀 -->
+	<bean id="jspViewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<!-- 静态资源访问 -->
+	<mvc:resources location="/admin/" mapping="/admin/**" />
+	<mvc:resources location="/user/" mapping="/user/**" />
+	<mvc:resources location="/data/" mapping="/data/**" />
+	<!-- <mvc:interceptors> <mvc:interceptor> <mvc:mapping path="/*/*" /> 定义在mvc:interceptor下面的表示是对特定的请求才进行拦截的 
+		<bean class="com.interceptor.UserInterceptor" /> </mvc:interceptor> </mvc:interceptors> -->
+
+
+	<!-- 上传文件相关的配置 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="utf-8" />
+		<property name="maxUploadSize" value="104857600" />
+		<property name="maxInMemorySize" value="4096" />
+	</bean>
+
+</beans>
