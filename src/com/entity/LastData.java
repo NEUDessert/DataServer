@@ -8,8 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "data")
-public class Data {
+@Table(name = "last_data")
+public class LastData {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "data_id")
@@ -35,7 +35,15 @@ public class Data {
 	
 	@Column(name = "recetime")
 	private long recetime;
-
+	
+	public int getData_id(){
+		return data_id;
+	}
+	
+	public void setData_id(int data_id){
+		this.data_id = data_id;
+	}
+	
 	public String getUsername() {
 		return username;
 	}

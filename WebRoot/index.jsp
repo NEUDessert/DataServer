@@ -22,5 +22,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     This is my JSP page. <br>
+    
+    <form action="http://192.168.50.198:8080/DataServer/uploadData">
+	    Username: <input type="text" name="username" />
+	  	<input type="submit" value="Submit" />
+    </form>
+    
+    
   </body>
 </html>

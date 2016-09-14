@@ -30,7 +30,7 @@ public class Alert {
 	@Column(name = "alerttime")
 	private String alerttime;
 	
-	@Column(name = "check")
+	@Column(name = "ischeck")
 	private int check;
 
 	public int getAlert_id() {

@@ -18,6 +18,8 @@ import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 
 import com.common.tool.util.Page;
 import com.common.tool.util.PageBean;
+import com.entity.IntelUserInfoEntity;
+import com.entity.LastData;
 
 /**
  * @function 增删改查、翻页效果
@@ -26,7 +28,7 @@ import com.common.tool.util.PageBean;
  */
 
 public abstract class BaseDAO extends HibernateDaoSupport {
-
+	
 	// 通过注解将sessionFactory注入到setSuperHibernateDaoSupport的参数中
 	@Resource(name = "sessionFactory")
 	public void setSuperHibernateDaoSupport(SessionFactory sessionFactory) {
@@ -34,6 +36,8 @@ public abstract class BaseDAO extends HibernateDaoSupport {
 
 	}
 
+	
+	
 	/**
 	 * @function 创建一个对象
 	 * @version 2012-7-13 13:34:35
