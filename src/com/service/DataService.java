@@ -1,8 +1,11 @@
 package com.service;
 
+import java.util.List;
+
 import com.entity.Alert;
 import com.entity.Data;
 import com.entity.Device;
+import com.entity.IntelUserInfoEntity;
 import com.entity.LastData;
 
 /**
@@ -28,4 +31,10 @@ public interface DataService {
 	public void createWarn(Alert alert);
 	
 	public void createDevice(Device device);
+	
+	public IntelUserInfoEntity getDeviceByUsername(String username);
+	
+	public List<Device> getDeviceInfo(String username);
+	
+	public void updateDeviceNum(String username, int num);
 }

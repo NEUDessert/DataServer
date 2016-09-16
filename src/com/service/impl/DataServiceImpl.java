@@ -1,5 +1,7 @@
 package com.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -8,6 +10,7 @@ import com.dao.DataDao;
 import com.entity.Alert;
 import com.entity.Data;
 import com.entity.Device;
+import com.entity.IntelUserInfoEntity;
 import com.entity.LastData;
 import com.service.DataService;
 import com.util.Constants;
@@ -65,4 +68,19 @@ public class DataServiceImpl implements DataService {
 	public void createDevice(Device device) {
 		dataDao.createDevice(device);
 	}	
+	
+	@Override
+	public IntelUserInfoEntity getDeviceByUsername(String username){
+		return dataDao.getDeviceByUsername(username);
+	}
+	
+	@Override
+	public List<Device> getDeviceInfo(String username) {
+		return dataDao.getDeviceInfo(username);
+	}
+	
+	@Override
+	public void updateDeviceNum(String username, int num){
+		dataDao.updateDeviceNum(username, num);
+	}
 }

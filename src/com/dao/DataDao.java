@@ -1,8 +1,11 @@
 package com.dao;
 
+import java.util.List;
+
 import com.entity.Alert;
 import com.entity.Data;
 import com.entity.Device;
+import com.entity.IntelUserInfoEntity;
 import com.entity.LastData;
 
 /**
@@ -32,6 +35,15 @@ public interface DataDao {
 	
 	//更新最新data
 	public void updateLastData(LastData lastData);
+	
+	//通过username获取Device对象
+	public IntelUserInfoEntity getDeviceByUsername(String username);
+	
+	//更新用户设备数量
+	public void updateDeviceNum(String username, int num);
+	
+	//获取用户所有设备信息
+	public List<Device> getDeviceInfo(String username);
 	
 	//创建warn
 	public void createWarn(Alert alert);

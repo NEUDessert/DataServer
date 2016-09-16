@@ -24,13 +24,17 @@ public class Device {
 	@Column(name = "location")
 	private String location;
 
+	@Column(name = "registerTime")
+	private long registerTime;
+	
 	public Device(){
 	}
 	
-	public Device(String username, int deviceid, String location) {
+	public Device(String username, int deviceid, String location, long registerTime) {
 		this.username = username;
 		this.deviceid = deviceid;
 		this.location = location;
+		this.registerTime = registerTime;
 	}
 
 	public String getUsername() {
@@ -56,4 +60,14 @@ public class Device {
 	public void setLocation(String location) {
 		this.location = location;
 	}
+
+	public long getRegisterTime() {
+		return registerTime;
+	}
+
+	public void setRegisterTime(long registerTime) {
+		this.registerTime = registerTime;
+	}
+	
+
 }

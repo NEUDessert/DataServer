@@ -1,8 +1,9 @@
 package com.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -19,9 +21,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.entity.Alert;
 import com.entity.Data;
 import com.entity.Device;
+import com.entity.DeviceInfo;
+import com.entity.IntelUserInfoEntity;
 import com.entity.LastData;
 import com.service.DataService;
-import com.util.Constants;
 import com.util.Push;
 /**
  * Data控制器
@@ -55,10 +58,43 @@ public class DataController {
 	 */
 	@RequestMapping(value = "/setDevice")
 	public void setDevice(String username, int devID, String location){
-		Device device = new Device(username, devID, location);
+		long registerTime = System.currentTimeMillis();
+		System.out.println(location);
+		Device device = new Device(username, devID, location, registerTime);
 		
 		dataService.createDevice(device);
+		
+		IntelUserInfoEntity userInfo = dataService.getDeviceByUsername(username);
+		int num = userInfo.getDevnum() + 1;
+		dataService.updateDeviceNum(username, num);
 	}
+	
+	
+	/**
+	 * Get all information of one user's devices
+	 * @param username
+	 * @return
+	 */
+	@RequestMapping(value = "/getDeviceInfo")
+	@ResponseBody
+	public Object getDeviceInfo(String username){
+		List<Device> devices = dataService.getDeviceInfo(username);
+		
+		List<DeviceInfo> infos = new ArrayList();
+		if(devices != null){
+			
+			for(Device device : devices){
+				DeviceInfo info = new DeviceInfo(device.getDeviceid(), device.getLocation());
+				infos.add(info);
+			}
+		}else{
+			DeviceInfo info = new DeviceInfo(1, "无");
+			infos.add(info);
+		}
+		
+		return JSON.toJSON(infos);
+	}
+	
 	
 	/**
 	 * Upload normal data to database, includes temperature, 
@@ -98,10 +134,8 @@ public class DataController {
 		lastData.setRecetime(recetime);
 		
 		if(dataService.queryLastData(username, Integer.parseInt(deviceid))){
-			System.out.println("1111111111111111111111111111111111");
 			dataService.updateLastData(lastData);
 		}else{
-			System.out.println("222222222222222222222222222222222");
 			dataService.createLastData(lastData);
 		}
 	}

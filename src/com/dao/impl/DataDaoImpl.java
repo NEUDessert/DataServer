@@ -69,6 +69,7 @@ public class DataDaoImpl extends BaseDAO implements DataDao{
 		super.create(device);
 	}
 	
+	@Override
 	public boolean login(String username, String password){
         try {
             Session session = super.getSessionFactory().getCurrentSession();
@@ -86,12 +87,31 @@ public class DataDaoImpl extends BaseDAO implements DataDao{
         }
     }
 
-	
+	@Override
 	public void updateLastData(LastData lastData){
 		Session session = super.getSessionFactory().getCurrentSession();
 		String hql = "update LastData set temperature='"+lastData.getTemperature()+"',dampness='"+lastData.getDampness()+"',pm25='"
 				+lastData.getPm25()+"',pictureurl='"+lastData.getPrictureurl()+"',recetime="+lastData.getRecetime()+" where username='"
 				+lastData.getUsername()+"' and deviceid="+lastData.getDeviceid();
+		Query query = session.createQuery(hql);
+		query.executeUpdate();
+	}
+	
+	@Override
+	public IntelUserInfoEntity getDeviceByUsername(String username){
+		return (IntelUserInfoEntity)super.loadByKey(IntelUserInfoEntity.class, "username", username);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Device> getDeviceInfo(String username) {
+		return (List<Device>)super.loadAllByKey(Device.class, "username", username);
+	}
+	
+	@Override
+	public void updateDeviceNum(String username, int num) {
+		Session session = super.getSessionFactory().getCurrentSession();
+		String hql = "update IntelUserInfoEntity set devnum=" + num + " where username='"+ username+"'";
 		Query query = session.createQuery(hql);
 		query.executeUpdate();
 	}
