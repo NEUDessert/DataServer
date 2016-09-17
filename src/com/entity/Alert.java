@@ -21,14 +21,11 @@ public class Alert {
 	@Column(name = "deviceid")
 	private int deviceid;
 	
-	@Column(name = "sensorid")
-	private int sensorid;
-	
 	@Column(name = "alerttype")
 	private int alerttype;
 	
 	@Column(name = "alerttime")
-	private String alerttime;
+	private long alerttime;
 	
 	@Column(name = "ischeck")
 	private int check;
@@ -56,14 +53,6 @@ public class Alert {
 	public void setDeviceid(int deviceid) {
 		this.deviceid = deviceid;
 	}
-
-	public int getSensorid(){
-		return sensorid;
-	}
-	
-	public void setSensorid(int sensorid){
-		this.sensorid = sensorid;
-	}
 	
 	public int getAlerttype() {
 		return alerttype;
@@ -73,11 +62,11 @@ public class Alert {
 		this.alerttype = alerttype;
 	}
 
-	public String getAlerttime() {
+	public long getAlerttime() {
 		return alerttime;
 	}
 
-	public void setAlerttime(String alerttime) {
+	public void setAlerttime(long alerttime) {
 		this.alerttime = alerttime;
 	}
 

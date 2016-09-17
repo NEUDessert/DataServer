@@ -111,7 +111,43 @@ public class DataController {
 		String pm25 = request.getParameter("air");
 		String pic = request.getParameter("pic");
 		
+		String fire = request.getParameter("fire");
+		String gas = request.getParameter("gas");
+		String ir = request.getParameter("ir");
+		
+		
 		Long recetime = System.currentTimeMillis();
+		
+		if(fire.equals("true")){
+			Alert fireAlert = new Alert();
+			fireAlert.setUsername(username);
+			fireAlert.setDeviceid(Integer.parseInt(deviceid));
+			fireAlert.setAlerttype(0);
+			fireAlert.setAlerttime(recetime);
+			fireAlert.setCheck(0);
+			
+			dataService.createWarn(fireAlert);
+		}
+		if(gas.equals("true")){
+			Alert gasAlert = new Alert();
+			gasAlert.setUsername(username);
+			gasAlert.setDeviceid(Integer.parseInt(deviceid));
+			gasAlert.setAlerttype(1);
+			gasAlert.setAlerttime(recetime);
+			gasAlert.setCheck(0);
+			
+			dataService.createWarn(gasAlert);
+		}
+		if(ir.equals("true")){
+			Alert irAlert = new Alert();
+			irAlert.setUsername(username);
+			irAlert.setDeviceid(Integer.parseInt(deviceid));
+			irAlert.setAlerttype(2);
+			irAlert.setAlerttime(recetime);
+			irAlert.setCheck(0);
+			
+			dataService.createWarn(irAlert);
+		}
 		
 		Data data = new Data();
 		data.setUsername(username);
@@ -138,25 +174,6 @@ public class DataController {
 		}else{
 			dataService.createLastData(lastData);
 		}
-	}
-	
-	/**
-	 * Upload warning details in order to send information to
-	 * users so that they can know their situations of their
-	 * own home in time
-	 * 
-	 */
-	@RequestMapping(value = "/warn")
-	public void warn(String username, int devID, int sensorID, int type){
-		Alert alert = new Alert();
-		alert.setUsername(username);
-		alert.setDeviceid(devID);
-		alert.setSensorid(sensorID);
-		alert.setAlerttype(type);
-		alert.setAlerttime(Long.toString(System.currentTimeMillis()));
-		alert.setCheck(0);
-		
-		dataService.createWarn(alert);
 	}
 	
 	@RequestMapping(value = "/video")
